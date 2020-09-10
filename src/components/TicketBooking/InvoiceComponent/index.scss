@@ -1,0 +1,27 @@
+.invoice-header {
+    text-align: center;
+    font-size: 30px;
+}
+
+.invoice-table {
+    border-collapse: collapse;
+    width: 100%;
+
+    td,
+    th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: rgb(160, 87, 228);
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+}

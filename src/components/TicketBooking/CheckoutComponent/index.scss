@@ -1,0 +1,35 @@
+.checkout-container {
+    .checkout-theater {
+        .checkout-content {
+            width: 65%;
+            margin: auto;
+
+            .column-heading {
+                height: 10%;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 100%;
+            }
+        }
+    }
+
+    .checkout-note {
+        width: 75%;
+        display: flex;
+        margin: 50px auto;
+
+        .seat-icon {
+            width: 20%;
+
+            .seat {
+                margin: 0 auto;
+            }
+
+            p {
+                text-align: center;
+            }
+        }
+    }
+}
