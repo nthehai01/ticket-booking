@@ -1,48 +1,51 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import './index.scss';
 
-import { BookingTicketContext } from '../../../TicketBooking';
+import { chooseSeat } from '../../../../redux/constants/TicketBookingConst';
 
-const Seat = (props) => {
-    const { value } = props;
+const Seat = ({ seat, choose }) => {
     const [status, setStatus] = useState(false);
     const [seatType, setSeatType] = useState('normal');
 
-    const [bookingList, setBookingList] = useContext(BookingTicketContext);
-
     useEffect(() => {
-        if (value.daDat) {
+        if (seat.daDat) {
             setSeatType("chosen");
             return;
         }
-        if (value.loaiGhe === "Vip")
+        if (seat.loaiGhe === "Vip")
             setSeatType("vip");
-    }, [value]);
+    }, [seat]);
 
     const handleClick = () => {
-        let list = bookingList;
-        if (!status)
-            list.push(value);
-        else {
-            const index = list.findIndex(item => item.stt === value.stt);
-            list.splice(index, 1);
-        }
-        setBookingList([...list]);
+        choose(status, seat);
         setStatus(!status);
-    }
+    };
 
     const handleSeatNumber = (number) => (number % 16) ? (number % 16) : '16'
 
     return (
         <button
             className={status ? `seat ${seatType} choosing` : `seat ${seatType}`}
-            onClick={handleClick}
-            disabled={value.daDat}
+            onClick={() => handleClick()}
+            disabled={seat.daDat}
         >
-            {status && <span className="seat-text">{handleSeatNumber(value.stt)}</span>}
+            {status && <span className="seat-text">{handleSeatNumber(seat.stt)}</span>}
         </button>
     )
-}
+};
 
-export default Seat;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        choose: (status, seat) => {
+            dispatch({
+                type: chooseSeat,
+                status,
+                seat
+            })
+        }
+    }
+};
+
+export default connect(null, mapDispatchToProps)(Seat);

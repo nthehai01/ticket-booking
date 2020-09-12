@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import './index.scss';
 
-import { BookingTicketContext } from '../../TicketBooking';
+import { bookTicket } from '../../../redux/constants/TicketBookingConst';
 
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
-const InvoiceComponent = () => {
-    const [bookingList] = useContext(BookingTicketContext);
-
+const InvoiceComponent = ({ bookingList, book }) => {
     const handleSeatNumber = (number) => {
         let position = '';
         position += alphabet[parseInt(number / 16)];
@@ -50,8 +49,25 @@ const InvoiceComponent = () => {
                 Total: <b>{calculateMoney()}</b>
             </p>
             {renderInvoiceTable()}
+            <button onClick={() => book()}>aa</button>
         </>
     );
-}
+};
 
-export default InvoiceComponent;
+const mapStateToProps = (state) => {
+    return {
+        bookingList: state.TicketBookingReducer.bookingList
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        book: () => {
+            dispatch({
+                type: bookTicket
+            })
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InvoiceComponent);

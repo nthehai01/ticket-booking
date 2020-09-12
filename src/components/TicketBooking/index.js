@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Row, Col } from 'antd';
+import { connect } from 'react-redux';
 
 import './index.scss';
 import 'antd/dist/antd.css';
@@ -8,12 +9,11 @@ import 'antd/dist/antd.css';
 import CheckoutComponent from './CheckoutComponent';
 import InvoiceComponent from './InvoiceComponent';
 
+import { setShowtime } from '../../redux/constants/TicketBookingConst';
+
 export const BookingTicketContext = React.createContext();
 
-const TicketBooking = () => {
-    const [showtime, setShowtime] = useState(null);
-    const [bookingList, setBookingList] = useState([]);
-
+const TicketBooking = ({ setShowtime }) => {
     useEffect(() => {
         axios({
             url: 'http://movie0706.cybersoft.edu.vn/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=18529',
@@ -23,24 +23,27 @@ const TicketBooking = () => {
             .catch(err => console.log(err.response.data))
     }, []);
 
-    const renderScreen = () => {
-        return (
-            <BookingTicketContext.Provider value={[bookingList, setBookingList]}>
-                <Row gutter={[0, 0]}>
-                    <Col xs={24} md={16}>
-                        <CheckoutComponent value={showtime} />
-                    </Col>
-                    <Col xs={24} md={8}>
-                        <InvoiceComponent />
-                    </Col>
-                </Row>
-            </BookingTicketContext.Provider>
-        );
-    }
-
     return (
-        showtime && renderScreen()
+        <Row gutter={[0, 0]}>
+            <Col xs={24} md={16}>
+                <CheckoutComponent />
+            </Col>
+            <Col xs={24} md={8}>
+                <InvoiceComponent />
+            </Col>
+        </Row>
     );
-}
+};
 
-export default TicketBooking;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setShowtime: (showtime) => {
+            dispatch({
+                type: setShowtime,
+                data: showtime
+            });
+        }
+    }
+};
+
+export default connect(null, mapDispatchToProps)(TicketBooking);

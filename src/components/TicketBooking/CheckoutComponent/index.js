@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
+import { connect } from 'react-redux';
 
 import './index.scss';
 import 'antd/dist/antd.css';
@@ -8,22 +9,20 @@ import Seat from './Seat';
 
 const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
-const CheckoutComponent = (props) => {
-    const showtime = props.value;
-
+const CheckoutComponent = ({ showtime }) => {
     const renderMovieInfo = () => {
         return (
             <>
-                <p>{showtime.thongTinPhim.tenCumRap}</p>
-                <p>{showtime.thongTinPhim.tenPhim}</p>
+                <p>{showtime?.thongTinPhim.tenCumRap}</p>
+                <p>{showtime?.thongTinPhim.tenPhim}</p>
             </>
         )
     };
 
     const renderSeatArea = () => {
-        return showtime.danhSachGhe.map((item, index) => {
+        return showtime?.danhSachGhe.map((item, index) => {
             return (
-                <Seat key={index} value={item} />
+                <Seat key={index} seat={item} />
             )
         })
     };
@@ -78,6 +77,12 @@ const CheckoutComponent = (props) => {
             </div>
         </div>
     );
-}
+};
 
-export default CheckoutComponent;
+const mapStateToProps = (state) => {
+    return {
+        showtime: state.TicketBookingReducer.showtime
+    }
+};
+
+export default connect(mapStateToProps)(CheckoutComponent);
