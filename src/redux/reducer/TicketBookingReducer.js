@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
                     danhSachVe: state.bookingList,
                     taiKhoanNguoiDung: 'hj'
                 },
-                header: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiaGoiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJLaGFjaEhhbmciLCJuYmYiOjE1OTk5MDExNTAsImV4cCI6MTU5OTkwNDc1MH0.AGVDmqw4aWzMKj2LTzDfjywhAL6OyEjy3OoZVsi9yZs` }
+                header: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiY2MiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJLaGFjaEhhbmciLCJuYmYiOjE2MDA0OTQwOTksImV4cCI6MTYwMDQ5NzY5OX0.t1DFA753jQ5OPN_ncZaWceO1U_0Oow1biB9cLYQvgzA` }
             })
                 .then(res => { console.log(1) })
                 .catch(err => { console.log(2) })
